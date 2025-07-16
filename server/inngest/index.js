@@ -59,6 +59,7 @@
 //     syncUserCreation, 
 //     syncUserDeletion,
 //     syncUserUpdation];
+import 'dotenv/config';
 
 import { Inngest } from "inngest";
 import User from "../module/User.js";
