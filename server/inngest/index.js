@@ -1,61 +1,113 @@
-// import { User } from "@clerk/express";
+// // import { User } from "@clerk/express";
+// import { Inngest } from "inngest";
+// import User from "../module/User.js";
+
+
+// export const inngest = new Inngest({ id: "movie-ticket-booking" });
+// //ingest functions to save user data to databaase
+
+
+// const syncUserCreation = inngest.createFunction(
+//     {id: 'sync-user-from-clerk'},
+//     {event: 'clerk/user.created'},
+//     async ({event}) =>{
+//         const {id, first_name, last_name, email_addresses, image_url} = event.data
+//         const userData ={
+//             _id: id,
+//             email: email_addresses[0].email_address,
+//             name: first_name + ' ' + last_name,
+//             image: image_url
+//         }
+//         await User.create(userData)
+//     }
+// )
+
+// //inggest function to delete userfrom database
+
+// const syncUserDeletion = inngest.createFunction(
+//     {id: 'delete-user-from-clerk'},
+//     {event: 'clerk/user.deleted'},
+//     async ({event}) =>{
+       
+//         const {id} = event.data
+//         await User.findByIdAndDelete(id)
+//     }
+// )
+
+// //inggest function to update user data in databse
+
+// const syncUserUpdation = inngest.createFunction(
+//     {id: 'update-user-from-clerk'},
+//     {event: 'clerk/user.updated'},
+//     async ({event}) =>{
+//        const {id, first_name, last_name, email_addresses, image_url} = event.data
+//        const userData ={
+//             _id: id,
+//             email: email_addresses[0].email_address,
+//             name: first_name + ' ' + last_name,
+//             image: image_url
+//         }
+//         await User.findByIdAndUpdate(id, userData)
+//     }
+// )
+
+
+
+
+
+// export const functions = [
+//     syncUserCreation, 
+//     syncUserDeletion,
+//     syncUserUpdation];
+
 import { Inngest } from "inngest";
 import User from "../module/User.js";
 
+export const inngest = new Inngest({
+  id: "movie-ticket-booking",
+  signingKey: process.env.INNGEST_SIGNING_KEY, // ✅ Don't forget this
+});
 
-export const inngest = new Inngest({ id: "movie-ticket-booking" });
-//ingest functions to save user data to databaase
-
-
+// Inngest function to save user data to database
 const syncUserCreation = inngest.createFunction(
-    {id: 'sync-user-from-clerk'},
-    {event: 'clerk/user.created'},
-    async ({event}) =>{
-        const {id, first_name, last_name, email_addresses, image_url} = event.data
-        const userData ={
-            _id: id,
-            email: email_addresses[0].email_address,
-            name: first_name + ' ' + last_name,
-            image: image_url
-        }
-        await User.create(userData)
-    }
-)
+  { id: "sync-user-from-clerk" },
+  { event: "clerk/user.created" },
+  async ({ event }) => {
+    const { id, first_name, last_name, email_addresses, image_url } = event.data;
+    const userData = {
+      _id: id,
+      email: email_addresses[0].email_address,
+      name: first_name + " " + last_name,
+      image: image_url,
+    };
+    await User.create(userData);
+  }
+);
 
-//inggest function to delete userfrom database
-
+// Inngest function to delete user from database
 const syncUserDeletion = inngest.createFunction(
-    {id: 'delete-user-from-clerk'},
-    {event: 'clerk/user.deleted'},
-    async ({event}) =>{
-       
-        const {id} = event.data
-        await User.findByIdAndDelete(id)
-    }
-)
+  { id: "delete-user-from-clerk" },
+  { event: "clerk/user.deleted" },
+  async ({ event }) => {
+    const { id } = event.data;
+    await User.findByIdAndDelete(id);
+  }
+);
 
-//inggest function to update user data in databse
-
+// Inngest function to update user data in database
 const syncUserUpdation = inngest.createFunction(
-    {id: 'update-user-from-clerk'},
-    {event: 'clerk/user.updated'},
-    async ({event}) =>{
-       const {id, first_name, last_name, email_addresses, image_url} = event.data
-       const userData ={
-            _id: id,
-            email: email_addresses[0].email_address,
-            name: first_name + ' ' + last_name,
-            image: image_url
-        }
-        await User.findByIdAndUpdate(id, userData)
-    }
-)
+  { id: "update-user-from-clerk" },
+  { event: "clerk/user.updated" },
+  async ({ event }) => {
+    const { id, first_name, last_name, email_addresses, image_url } = event.data;
+    const userData = {
+      _id: id,
+      email: email_addresses[0].email_address,
+      name: first_name + " " + last_name,
+      image: image_url,
+    };
+    await User.findByIdAndUpdate(id, userData);
+  }
+);
 
-
-
-
-
-export const functions = [
-    syncUserCreation, 
-    syncUserDeletion,
-    syncUserUpdation];
+export const functions = [syncUserCreation, syncUserDeletion, syncUserUpdation];
