@@ -8,8 +8,11 @@ const Footer = () => {
                 <div className="md:max-w-96">
                     <img className="w-36 h-auto" src={assets.logo} alt="logo" />
                     <p className="mt-6 text-sm">
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                      VSR Show is a secure and user-friendly movie ticket booking app designed for a smooth and hassle-free experience. Browse movies, select seats, and book safely — all in one place.
+
+
                     </p>
+                     <p className="text-gray-400">Developed by Varanganty Shivaram</p>
                     <div className="flex items-center gap-2 mt-4">
                         <img src={assets.googlePlay} alt="google play" className="h-9 w-auto " />
                         <img src={assets.appStore} alt="app store" className="h-9 w-auto" />
@@ -28,8 +31,8 @@ const Footer = () => {
                     <div>
                         <h2 className="font-semibold mb-5">Get in touch</h2>
                         <div className="text-sm space-y-2">
-                            <p>+1-234-567-890</p>
-                            <p>contact@example.com</p>
+                            {/* <p>+1-234-567-890</p> */}
+                            <p>shivaramv502@gmail.com</p>
                         </div>
                     </div>
                 </div>
