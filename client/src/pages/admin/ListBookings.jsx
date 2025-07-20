@@ -1,21 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { dummyBookingData } from '../../assets/assets';
 import Title from '../../components/admin/Title'; // ✅ Make sure this path is correct
+import { useAppContext } from '../../context/AppContext';
 
 const ListBookings = () => {
+
+
+  const { axios, getToken, user, image_base_url } = useAppContext();
+  
+  
   const currency = import.meta.env.VITE_CURRENCY;
 
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAllBookings = async () => {
-    setBookings(dummyBookingData);
-    setIsLoading(false);
+   try {
+    const { data } = await axios.get('/api/admin/all-bookings', {
+    headers: {Authorization : `Bearer ${await getToken()}`}
+  });
+setBookings(data.bookings)
+
+
+   } catch (error){
+console.error(error);
+   }
+setIsLoading(false)
+
   };
 
   useEffect(() => {
+  if(user){
     getAllBookings();
-  }, []);
+  }
+  }, [user]);
 
   return isLoading ? (
     <div>
