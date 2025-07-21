@@ -74,9 +74,8 @@ export const createBooking = async (req, res) =>{
 
         const session = await stripeInstance.checkout.sessions.create({
 
-            // success_url: `${origin}/loading/my-bookings`,
-            success_url: `${origin}/my-bookings?success=true`,
-
+            success_url: `${origin}/loading/my-bookings`,
+          
             cancel_url: `${origin}/loading/my-bookings`,
             line_items: line_items,
             mode:'payment',
