@@ -111,8 +111,8 @@ import { Link } from 'react-router-dom';
 const MyBookings = () => {
   const currency = import.meta.env.VITE_CURRENCY;
   //const location = useLocation(); 
-  const [bookings, setBookings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [bookings, setBookings] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const {
     axios,
@@ -124,8 +124,8 @@ const MyBookings = () => {
   const getMyBookings = async () => {
     try {
       const { data } = await axios.get('/api/user/bookings', {
-        headers: { Authorization: `Bearer ${await getToken()}` },
-      });
+        headers: { Authorization: `Bearer ${await getToken()}` }
+      })
 
       if (data.success) {
         setBookings(data.bookings);
@@ -133,21 +133,22 @@ const MyBookings = () => {
     } catch (error) {
       console.log(error);
     }
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
+  
 
-  // useEffect(() => {
-  //   if (user) {
-  //     getMyBookings();
-  //   }
-  // }, []);
-    useEffect(() => {
-    console.log('User is:', user);
-
-    if (user !== undefined) {
+  useEffect(() => {
+    if (user) {
       getMyBookings();
     }
   }, [user]);
+  //   useEffect(() => {
+  //   console.log('User is:', user);
+
+  //   if (user !== undefined) {
+  //     getMyBookings();
+  //   }
+  // }, [user]);
 
   return !isLoading ? (
     <div className='relative px-6 md:px-16 lg:px-40 pt-30 md:pt-40 min-h-[80vh]'>
