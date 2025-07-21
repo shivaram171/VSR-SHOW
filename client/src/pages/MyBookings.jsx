@@ -106,9 +106,11 @@ import timeFormat from '../lib/timeFormat';
 import { dateFormat } from '../lib/dateFormat';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const MyBookings = () => {
   const currency = import.meta.env.VITE_CURRENCY;
+  const location = useLocation(); 
   const [bookings, setBookings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -145,7 +147,7 @@ const MyBookings = () => {
     if (user !== undefined) {
       getMyBookings();
     }
-  }, [user]);
+  }, [user, location]);
 
   return !isLoading ? (
     <div className='relative px-6 md:px-16 lg:px-40 pt-30 md:pt-40 min-h-[80vh]'>
