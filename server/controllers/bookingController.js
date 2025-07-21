@@ -57,7 +57,7 @@ export const createBooking = async (req, res) =>{
         await showData.save();
 
         const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
-
+//creating items for stripe
         const line_items =[{
 
             price_data: {
@@ -76,7 +76,7 @@ export const createBooking = async (req, res) =>{
 
             success_url: `${origin}/loading/my-bookings`,
           
-            cancel_url: `${origin}/loading/my-bookings`,
+            cancel_url: `${origin}/my-bookings`,
             line_items: line_items,
             mode:'payment',
             metadata:
@@ -84,7 +84,7 @@ export const createBooking = async (req, res) =>{
                 bookingId: booking._id.toString()
                 
             },
-            expires_at: Math.floor(Date.now()/1000) + 30 * 60,
+            expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
 
         })
 
